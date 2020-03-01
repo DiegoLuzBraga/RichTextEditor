@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ffe64c2776831b2c9c6dd366b013b078",
+    "revision": "a886fe035f07f012dced441c383408cd",
     "url": "/RichTextEditor/index.html"
   },
   {
-    "revision": "4984828df97ccdb438f1",
-    "url": "/RichTextEditor/static/css/main.ad3ac356.chunk.css"
+    "revision": "0cbe9e7fe0659bde0365",
+    "url": "/RichTextEditor/static/css/main.23575359.chunk.css"
   },
   {
     "revision": "5fc886d9debed9e00cec",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/RichTextEditor/static/js/2.bf802840.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4984828df97ccdb438f1",
-    "url": "/RichTextEditor/static/js/main.ab7bdfe0.chunk.js"
+    "revision": "0cbe9e7fe0659bde0365",
+    "url": "/RichTextEditor/static/js/main.a046bafd.chunk.js"
   },
   {
     "revision": "7d6286023db448775cb2",
