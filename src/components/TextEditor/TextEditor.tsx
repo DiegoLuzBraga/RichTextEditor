@@ -10,33 +10,21 @@ export const TextEditor = () => {
     handleKeyDown,
     renderElement,
     renderLeaf,
-    CustomEditor
+    handleCode,
+    handleBold
   } = useTextEditor();
 
   return (
     <Slate value={value} editor={editor} onChange={value => setValue(value)}>
       <div>
-        <button
-          onMouseDown={event => {
-            event.preventDefault();
-            CustomEditor.toggleBoldMark();
-          }}
-        >
-          Bold
-        </button>
-        <button
-          onMouseDown={event => {
-            event.preventDefault();
-            CustomEditor.toggleCodeBlock();
-          }}
-        >
-          Code Block
-        </button>
+        <button onClick={() => handleBold()}>Bold</button>
+        <button onClick={() => handleCode()}>Code Block</button>
       </div>
       <Editable
         renderElement={renderElement}
         renderLeaf={renderLeaf}
         onKeyDown={(event: any) => handleKeyDown(event)}
+        placeholder="Enter some text…"
       />
     </Slate>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import { TextEditor } from "./components/TextEditor/TextEditor";
 
 function App() {

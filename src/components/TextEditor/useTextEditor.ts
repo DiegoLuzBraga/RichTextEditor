@@ -83,6 +83,11 @@ export function useTextEditor() {
     return Leaf(props);
   }, []);
 
+  const handleButtonFormat = {
+    code: () => CustomEditor.toggleCodeBlock(),
+    bold: () => CustomEditor.toggleBoldMark()
+  };
+
   return {
     editor,
     value,
@@ -90,6 +95,7 @@ export function useTextEditor() {
     handleKeyDown,
     renderElement,
     renderLeaf,
-    CustomEditor
+    handleCode: () => handleButtonFormat["code"](),
+    handleBold: () => handleButtonFormat["bold"]()
   } as const;
 }
