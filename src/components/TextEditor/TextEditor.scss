@@ -1,0 +1,13 @@
+.textEditor {
+  max-width: 720px;
+  background-color: white;
+  margin: 0 auto 20px;
+  padding: 20px;
+  .buttons {
+  }
+  .editable {
+    outline: none;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+  }
+}

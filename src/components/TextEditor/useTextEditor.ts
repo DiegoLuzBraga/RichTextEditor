@@ -1,6 +1,6 @@
 import { useMemo, useState, useCallback } from "react";
 import { withReact } from "slate-react";
-import { createEditor, Node, Transforms, Editor, Text, NodeEntry } from "slate";
+import { createEditor, Node, Transforms, Editor, Text } from "slate";
 import { CodeElement, DefaultElement } from "../CodeElement/CodeElement";
 import { Leaf } from "../Leaf/Leaf";
 
@@ -16,6 +16,26 @@ export function useTextEditor() {
   ]);
 
   const CustomEditor = {
+    toggleBoldMark() {
+      const isActive = EditorValidation.isBoldMarkActive();
+      Transforms.setNodes(
+        editor,
+        { bold: isActive ? null : true },
+        { match: n => Text.isText(n), split: true }
+      );
+    },
+
+    toggleCodeBlock() {
+      const isActive = EditorValidation.isCodeBlockActive();
+      Transforms.setNodes(
+        editor,
+        { type: isActive ? null : "code" },
+        { match: n => Editor.isBlock(editor, n) }
+      );
+    }
+  };
+
+  const EditorValidation = {
     isBoldMarkActive() {
       const [match] = Editor.nodes(editor, {
         match: n => n.bold === true,
@@ -30,24 +50,6 @@ export function useTextEditor() {
         match: n => n.type === "code"
       });
       return !!match;
-    },
-
-    toggleBoldMark() {
-      const isActive = CustomEditor.isBoldMarkActive();
-      Transforms.setNodes(
-        editor,
-        { bold: isActive ? null : true },
-        { match: n => Text.isText(n), split: true }
-      );
-    },
-
-    toggleCodeBlock() {
-      const isActive = CustomEditor.isCodeBlockActive();
-      Transforms.setNodes(
-        editor,
-        { type: isActive ? null : "code" },
-        { match: n => Editor.isBlock(editor, n) }
-      );
     }
   };
 
