@@ -2,6 +2,7 @@ import React from "react";
 import { Slate, Editable } from "slate-react";
 import { useTextEditor } from "./useTextEditor";
 import "./TextEditor.scss";
+import { Button } from "../Button/Button";
 
 export const TextEditor = () => {
   const {
@@ -11,16 +12,36 @@ export const TextEditor = () => {
     handleKeyDown,
     renderElement,
     renderLeaf,
-    handleCode,
-    handleBold
+    code,
+    bold,
+    italic,
+    underline
   } = useTextEditor();
 
   return (
     <div className="textEditor">
       <Slate value={value} editor={editor} onChange={value => setValue(value)}>
         <div className="buttons">
-          <button onClick={() => handleBold()}>Bold</button>
-          <button onClick={() => handleCode()}>Code Block</button>
+          <Button
+            handler={() => bold.handleBold()}
+            text="B"
+            active={bold.active}
+          />
+          <Button
+            handler={() => italic.handleItalic()}
+            text="I"
+            active={italic.active}
+          />
+          <Button
+            handler={() => underline.handleUnderline()}
+            text="U"
+            active={underline.active}
+          />
+          <Button
+            handler={() => code.handleCode()}
+            text={"< >"}
+            active={code.active}
+          />
         </div>
         <Editable
           className="editable"
@@ -28,6 +49,8 @@ export const TextEditor = () => {
           renderLeaf={renderLeaf}
           onKeyDown={(event: any) => handleKeyDown(event)}
           placeholder="Enter some text…"
+          spellCheck
+          autoFocus
         />
       </Slate>
     </div>

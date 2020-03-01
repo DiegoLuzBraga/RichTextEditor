@@ -11,46 +11,29 @@ export function useTextEditor() {
   const [value, setValue] = useState<Node[]>([
     {
       type: "paragraph",
-      children: [{ text: "O tiririca." }]
+      children: [
+        { text: "This is " },
+        { text: "my ", underline: true },
+        { text: "rich", bold: true },
+        { text: " text editor!", italic: true },
+        { text: " Enjoy!", code: true }
+      ]
     }
   ]);
 
-  const CustomEditor = {
-    toggleBoldMark() {
-      const isActive = EditorValidation.isBoldMarkActive();
-      Transforms.setNodes(
-        editor,
-        { bold: isActive ? null : true },
-        { match: n => Text.isText(n), split: true }
-      );
-    },
+  const markByFormat = (format: "code" | "bold" | "italic" | "underline") => {
+    const isActive = isMarked(format);
 
-    toggleCodeBlock() {
-      const isActive = EditorValidation.isCodeBlockActive();
-      Transforms.setNodes(
-        editor,
-        { type: isActive ? null : "code" },
-        { match: n => Editor.isBlock(editor, n) }
-      );
+    if (isActive) {
+      Editor.removeMark(editor, format);
+    } else {
+      Editor.addMark(editor, format, true);
     }
   };
 
-  const EditorValidation = {
-    isBoldMarkActive() {
-      const [match] = Editor.nodes(editor, {
-        match: n => n.bold === true,
-        universal: true
-      });
-
-      return !!match;
-    },
-
-    isCodeBlockActive() {
-      const [match] = Editor.nodes(editor, {
-        match: n => n.type === "code"
-      });
-      return !!match;
-    }
+  const isMarked = (format: "code" | "bold" | "italic" | "underline") => {
+    const marks = Editor.marks(editor);
+    return marks ? marks[format] : false;
   };
 
   function handleKeyDown(event: any) {
@@ -61,12 +44,22 @@ export function useTextEditor() {
 
     switch (event.key) {
       case "`": {
-        CustomEditor.toggleCodeBlock();
+        markByFormat("code");
         break;
       }
 
       case "b": {
-        CustomEditor.toggleBoldMark();
+        markByFormat("bold");
+        break;
+      }
+
+      case "i": {
+        markByFormat("italic");
+        break;
+      }
+
+      case "u": {
+        markByFormat("underline");
         break;
       }
     }
@@ -85,11 +78,6 @@ export function useTextEditor() {
     return Leaf(props);
   }, []);
 
-  const handleButtonFormat = {
-    code: () => CustomEditor.toggleCodeBlock(),
-    bold: () => CustomEditor.toggleBoldMark()
-  };
-
   return {
     editor,
     value,
@@ -97,7 +85,21 @@ export function useTextEditor() {
     handleKeyDown,
     renderElement,
     renderLeaf,
-    handleCode: () => handleButtonFormat["code"](),
-    handleBold: () => handleButtonFormat["bold"]()
+    code: {
+      active: isMarked("code"),
+      handleCode: () => markByFormat("code")
+    },
+    bold: {
+      active: isMarked("bold"),
+      handleBold: () => markByFormat("bold")
+    },
+    italic: {
+      active: isMarked("italic"),
+      handleItalic: () => markByFormat("italic")
+    },
+    underline: {
+      active: isMarked("underline"),
+      handleUnderline: () => markByFormat("underline")
+    }
   } as const;
 }

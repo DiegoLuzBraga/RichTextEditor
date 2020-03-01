@@ -1,13 +1,32 @@
 .textEditor {
   max-width: 720px;
-  background-color: white;
   margin: 0 auto 20px;
   padding: 20px;
   .buttons {
+    padding: 1px 18px 17px;
+    margin: 0px -20px 20px;
+    border-bottom: 2px solid rgb(238, 238, 238);
+    text-align: start;
+    > button {
+      text-align: center;
+      width: 18px;
+      height: 18px;
+      &:last-child {
+        width: 23px;
+        height: 20px;
+      }
+    }
   }
   .editable {
+    text-align: start;
     outline: none;
     white-space: pre-wrap;
     overflow-wrap: break-word;
   }
+}
+
+.textEditor,
+.buttons,
+.editable {
+  background-color: white;
 }
