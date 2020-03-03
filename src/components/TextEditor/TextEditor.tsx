@@ -22,26 +22,18 @@ export const TextEditor = () => {
     <div className="textEditor">
       <Slate value={value} editor={editor} onChange={value => setValue(value)}>
         <div className="buttons">
+          <Button handler={bold.handleBold} text="B" active={bold.active} />
           <Button
-            handler={() => bold.handleBold()}
-            text="B"
-            active={bold.active}
-          />
-          <Button
-            handler={() => italic.handleItalic()}
+            handler={italic.handleItalic}
             text="I"
             active={italic.active}
           />
           <Button
-            handler={() => underline.handleUnderline()}
+            handler={underline.handleUnderline}
             text="U"
             active={underline.active}
           />
-          <Button
-            handler={() => code.handleCode()}
-            text={"< >"}
-            active={code.active}
-          />
+          <Button handler={code.handleCode} text={"< >"} active={code.active} />
         </div>
         <Editable
           className="editable"
